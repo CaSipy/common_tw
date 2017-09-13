@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport"
+	          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+		<!--oss库资源引用-->
+		<!--字体图标库-->
+	    <link rel="stylesheet" href="http://static.huibaoming.cn/font-awesome/css/font-awesome.css">
+	    <link rel="stylesheet" href="http://common.huibaoming.cn/jquery-weui/css/weui.css">
+	    <link rel="stylesheet" href="http://common.huibaoming.cn/jquery-weui/css/jquery-weui.css">
+	    <!--当前项目样式引用-->
+		<link rel="stylesheet" href="../src/css/wap.css">
+		<link rel="stylesheet" type="text/css" href="../src/css/wap_public.css"/>
+	    <link rel="stylesheet" href="../src/css/coupon.css">
+	</head>
+	<body>
+		<header>
+			<nav class="bg-wechat">
+				<div class="classify_nav">
+					<ul class="bg-white">
+						<!--<li class="" ng-repeat="item in json.items" ng-bind="item.nav_name" ng-class="{'nav_li_checked':choose==$index}" ng-click="change($index)">余额</li>-->
+						<!-- data-base 为看效果测试用，可删除-->
+						<!--<li class="" ng-class="{'nav_li_checked':choose==0}" ng-click="change($index)">余额</li>
+						<li ng-class="{'nav_li_checked':choose==1}" ng-click="change($index)">佣金</li>
+						<li ng-class="{'nav_li_checked':choose==2}" ng-click="change($index)">积分</li>-->
+						<li class="weui-flex__item ng-scope centerbor nav_li_checked" data-base="5">全部</li>
+						<li class="weui-flex__item ng-scope centerbor" data-base="6">通用券</li>
+						<li class="weui-flex__item ng-scope centerbor" data-base="7">限定券</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		
+		<section class="cpS_sec">
+			<figure class="cp_figNew weui-flex" onclick="exchange(this)">
+				<div class="flex_item3 text-c figS_Lsize">
+					<p>￥121</p>
+					<b class="text-font3">所需积分:
+						<i class="text-font4">200</i>
+					</b>
+				</div>
+				<div class="flex_item4 fig_Rsize">
+					<header class="text-c">购物优惠券</header>
+					<article class="fig_RartNew">
+						<p>2013-02-11至2018-12-12</p>
+						<p>满12元可用</p>
+						<p>只用于商城购物</p>
+					</article>
+				</div>
+			</figure>
+		</section>
+	</body>
+	<script src="http://common.huibaoming.cn/jquery/jquery.js"></script>
+	<script src="http://common.huibaoming.cn/jquery-weui/js/jquery-weui.js"></script>
+	<script src="http://common.huibaoming.cn/jquery-weui/js/city-picker.js"></script>
+	<script src="http://common.huibaoming.cn/swiper/js/swiper.js"></script>
+	<script type="text/javascript">
+		function exchange(index){
+			$.confirm({
+				title: '兑换优惠券',
+				text: '您确定要用相应积分兑换此优惠券么？',
+				onOK: function () {
+				    //点击确认
+				    console.log('兑换成功');
+				},
+				onCancel: function () {
+					console.log("取消兑换");
+				}
+			});
+		}
+	</script>
+</html>

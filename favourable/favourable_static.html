@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>评价</title>
+    <link rel="stylesheet" href="http://common.huibaoming.cn/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="http://common.huibaoming.cn/jquery-weui/css/weui.css">
+    <link rel="stylesheet" href="http://common.huibaoming.cn/jquery-weui/css/jquery-weui.css">
+    <link rel="stylesheet" href="../src/css/wap_public.css">
+    <link rel="stylesheet" href="../src/css/wap.css">
+    <link rel="stylesheet" href="../src/css/favourable.css">
+    <link rel="stylesheet" href="http://common.huibaoming.cn/animate/3.5.2/animate.min.css">
+
+</head>
+<body ng-app="app" ng-controller="ctrl">
+    <div  class="fix_containner" style="margin-top:0">
+        <center style="width:100%" >
+            <div style="position:relative">
+                <img src="http://common.huibaoming.cn/wap/images/haivit/favourable_head.png" alt="" style="width:100%;" class="animated bounceInDown">
+                <div class="animated bounceInLeft" id="rule_award">
+                    <div  class="rule_top"  ng-click="rule()">规则&奖励</div>
+                </div>
+            </div>
+
+
+            <div style="width:20%;margin:0 auto">
+                <img src="http://common.huibaoming.cn/wap/images/haivit/logo_haivit.png" alt="" style="width:100%;" class="animated bounceInDown">
+            </div>
+            <div class="comment">
+                <div class="comment_order">
+                        <div class="weui-col-30">
+                           <div class="order_input"><input type="text" placeholder="填写或复制粘贴购物订单号" class="text-c"></div>
+                           <!--<div class="order_input mar-t3"><input type="text" placeholder="选择订单类型" class="" ng-click="order_type()" ng-model="order_name"></div>-->
+                    </div>
+                    <div class="weui-row mar-all3">
+                            <!--<input type="text" placeholder="上传照片" class="order_input_only">-->
+                        <p class="sc-text-tab text-font3">上传截图</p>
+                    </div>
+                    <!--图片上传-->
+                    <div class="img_container" style="">
+                        <div class="img_item" ng-repeat="item in thumb">
+                            <div class="imglist" style="background-image:url({{item.imgSrc}})"></div>
+                            <div class="del_icon icon-remove" ng-click="img_del($index)"></div>
+                        </div>
+                        <div class="weui-uploader__input-box img_item" ng-show="imglength<5" style="width:4rem;height:4rem;border-radius:5px;margin-right:0;border:none;display:inline-block;float:inherit">
+                            <input type="file" id="uploaderInput94" class="weui-uploader__input" accept="image/*" file-model="images" onchange="angular.element(this).scope().img_preview(this.files)"/>
+                        </div>
+                    </div>
+                    <div class="weui-btn text-font4 theme_bg bc-text-header" ng-click="datapush()">马上提交</div>
+                </div>
+
+            </div>
+        </center>
+    </div>
+    <!--<footer class="fix_footer">-->
+        <!--<div class="weui-flex">-->
+            <!--<div class="weui-flex__item foot_item">联系客服</div>-->
+            <!--<div class="weui-flex__item foot_item" ng-click="rule(1)"><p id="rule">活动规则</p></div>-->
+            <!--<div class="weui-flex__item foot_item" ng-click="award_pop(2)">我的奖励</div>-->
+        <!--</div>-->
+    <!--</footer>-->
+
+    <!--活动规则-->
+    <div id="about" class="weui-popup__container" >
+        <div class="weui-popup__overlay"></div>
+        <div class="weui-popup__modal" style="background:rgba(0,0,0,0.8) !important;">
+            <div class="icon-remove text-font5 icon_close" ng-click="pop_close()"></div>
+            <div class="weui-flex pop_tab">
+                <div class="weui-flex__item" >
+                    <p ng-click="tab(1)">操作流程</p>
+                    <li ng-class="{'tab_active':tab_num==1}"></li>
+                </div>
+                <div class="weui-flex__item" ng-click="tab(2)">
+                    <p ng-click="tab(2)">奖品记录</p>
+                    <li ng-class="{'tab_active':tab_num==2}"></li>
+                </div>
+            </div>
+            <div id="rule1">
+                <div class="rule" style="margin-top:3rem" >
+                    <div class="bc-text-header mar-b3 "><span class="rule_title">操作流程</span></div>
+                    <!--<div class="weui-row rule_item">-->
+                        <!--<div class="weui-col-15"><div class="num">1</div></div>-->
+                        <!--<div class="weui-col-85"><span class="text-font3">登录淘宝\京东平台，确认收货</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="weui-row rule_item">-->
+                        <!--<div class="weui-col-15"><div class="num">2</div></div>-->
+                        <!--<div class="weui-col-85"><span class="text-font3">登录淘宝\京东平台，确认收货</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="weui-row rule_item">-->
+                        <!--<div class="weui-col-15"><div class="num">3</div></div>-->
+                        <!--<div class="weui-col-85"><span class="text-font3">登录淘宝\京东平台，确认收货</span></div>-->
+                    <!--</div>-->
+                    <div class="rule_msg">
+                        <p>1、评价后无截图证明不能领取奖励</p>
+                        <p>2、证明不能领取奖励</p>
+                        <p>3、截图证明不能领取奖励</p>
+                        <p>4、评价后无截图证明励</p>
+                        <p>5、后无截图证明不能领取奖励</p>
+                        <p>6、评明不能领取奖励</p>
+                    </div>
+                    <!--<div class="rule_msg">-->
+                        <!--<p>1、登录淘宝\京东平台，确认收货</p>-->
+                        <!--<p>2、淘宝截图</p>-->
+                        <!--<p>3、进入公众号</p>-->
+                        <!--<p>4、上传截图</p>-->
+                        <!--<p>5、后无截图证明不能领取奖励</p>-->
+                    <!--</div>-->
+
+                </div>
+                <div class="rule">
+                    <div class="bc-text-header mar-b3"><span class="rule_title">活动规则</span></div>
+                    <div class="rule_msg">
+                        <p>1、评价后无截图证明不能领取奖励</p>
+                        <p>2、证明不能领取奖励</p>
+                        <p>3、截图证明不能领取奖励</p>
+                        <p>4、评价后无截图证明励</p>
+                        <p>5、后无截图证明不能领取奖励</p>
+                        <p>6、评明不能领取奖励</p>
+                    </div>
+                </div>
+            </div>
+            <div  id="rule2" class="hide">
+                <div class="rule">
+                    <div class="award_item">
+                        <div class="award_msg">
+                            <p class="text-font5 mar-b1">八等奖：5元无门槛优惠券</p>
+                            <p>兑换日期：2017.6.5至u2017.3.3</p>
+                        </div>
+                        <div class="award_status">
+                            <p class="active">未核销</p>
+                        </div>
+
+                    </div>
+                    <div class="award_item">
+                        <div class="award_msg">
+                            <p class="text-font5 mar-b1">红包：好评微信红包</p>
+                            <p>发放日期：2017.6.5</p>
+                        </div>
+                        <div class="award_status">
+                            <p class="active">已发放</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--选取哪种订单-->
+    <!--弹出框-->
+    <div id="order_type" class="weui-popup__container  popup-bottom">
+        <div class="weui-popup__overlay weui-popup-overlay"></div>
+        <div class="weui-popup__modal" style="overflow:inherit;background:#F8F8F8">
+            <!--关闭按钮-->
+            <!--<span class="toclose close-popup" ng-click="closePopup()">关闭</span>-->
+            <!--头部区域-->
+            <div class="popup-title">
+                <span  >选择方式</span>
+                <!--<span  ng-bind="'选择'+json.nav_title+'方式'"></span>-->
+            </div>
+            <!--选择区域,可垂直滚动-->
+            <article class="weui-cells weui-cells_radio mar-t5">
+                <!--<label class="weui-cell weui-check__label" for="x1{{$index}}"  ng-repeat="item in json.payments" ng-click="closePopup()">-->
+                    <!--<div class="weui-cell__hd"><img src="{{json_config.oss_common_url}}/{{item.logo}}" style="width:1.5rem; height:1.5rem;"></div>-->
+                    <!--<div class="weui-cell__bd">-->
+                        <!--<p ng-bind="item.name"></p >-->
+                    <!--</div>-->
+                    <!--<div class="weui-cell__ft" >-->
+                        <!--<input type="radio" class="weui-check" name="radio1" id="x1{{$index}}" ng-click="chose(item.name,item.id)" ng-checked="$index==0">-->
+                        <!--<span class="weui-icon-checked"></span>-->
+                    <!--</div>-->
+                <!--</label>-->
+                <label class="weui-cell weui-check__label" for="x1"  ng-click="closePopup()">
+                    <div class="weui-cell__hd"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1498549347&di=5398439d9aa5195503665ee338a7fab1&imgtype=jpg&er=1&src=http%3A%2F%2Fcdn2.image.apk.gfan.com%2Fasdf%2FPImages%2F2013%2F6%2F9%2F92461_2042e282f-1299-44f1-9b94-d33bac9a9911.png" style="width:1.5rem; height:1.5rem;"></div>
+                        <div class="weui-cell__bd">
+                            <p>京东</p >
+                        </div>
+                        <div class="weui-cell__ft" >
+                        <input type="radio" class="weui-check" name="radio1" id="x1" ng-click="chose('京东')" ng-checked="$index==0">
+                        <span class="weui-icon-checked"></span>
+                    </div>
+                </label>
+                <label class="weui-cell weui-check__label" for="x21"  ng-click="closePopup()">
+                    <div class="weui-cell__hd"><img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1497954688600&di=d166db028d12cd49177341cce00772ca&imgtype=0&src=http%3A%2F%2Fis3.mzstatic.com%2Fimage%2Fthumb%2FPurple1%2Fv4%2Fa7%2F79%2Fe5%2Fa779e5da-a268-326f-b691-9e2ace9340a0%2Fmzl.kkpxhdai.png%2F0x0ss-30.jpg" style="width:1.5rem; height:1.5rem;"></div>
+                    <div class="weui-cell__bd">
+                        <p>淘宝</p >
+                    </div>
+                    <div class="weui-cell__ft" >
+                        <input type="radio" class="weui-check" name="radio1" id="x21" ng-click="chose('淘宝')" ng-checked="$index==0">
+                        <span class="weui-icon-checked"></span>
+                    </div>
+                </label>
+            </article>
+            <!--底部按钮区域-->
+            <!--<div class="footer-fixed">-->
+                <!--<div class="btn-sure bg-green bc-text-header close-popup" ng-click="closePopup()">确认</div>-->
+            <!--</div>-->
+
+        </div>
+
+    </div>
+<div class="weui-mask" id="pop_mask"></div>
+<div class="pop_sure">
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon-success" style="font-size:4.5rem;color:#4CB5AA"></i></div>
+        <div class="weui-msg__text-area">
+            <h2 class="weui-msg__title">操作成功</h2>
+            <p class="weui-msg__desc">评论已提交，请等待审核</p>
+        </div>
+        <div class="pop_sure_back" ng-click="pop_sure_back()">确定</div>
+
+    </div>
+</div>
+</body>
+<script src="http://common.huibaoming.cn/jquery/jquery.js"></script>
+<script src="http://common.huibaoming.cn/angular/angular.js"></script>
+<script src="http://common.huibaoming.cn/angular/angular-sku.js"></script>
+<script src="http://common.huibaoming.cn/jquery-weui/js/jquery-weui.js"></script>
+<script src="http://common.huibaoming.cn/swiper/js/swiper.js"></script>
+<script type="text/javascript">
+    var key_app=angular.module('app',[]);
+    key_app.controller('ctrl',function ($scope,$http,$timeout) {
+        $scope.img_json=[];
+        $scope.tab_num=1;
+
+
+//        效果代码-------------------------------------------------
+        $scope.rule=function (num) {
+            $('#rule_award').removeClass('bounceInLeft');
+            $('#rule_award').addClass('bounceOutRight');
+            $timeout(function () {
+                $("#about").popup();
+            },500);
+
+        }
+//        award
+        $scope.award_pop=function (num) {
+            $scope.tab_num=num;
+            $("#about").popup();
+        }
+        $scope.pop_close=function () {
+            $('#rule_award').removeClass('bounceOutRight');
+            $('#rule_award').addClass('bounceInRight');
+            $.closePopup()
+        }
+        $scope.status=true;
+        $scope.tab=function (num) {
+            if($scope.status){
+                $scope.status=false;
+                $scope.tab_num=num;
+                if(num==1){
+                    $("#rule2").fadeOut();
+                    setTimeout(function () {
+                        $("#rule1").fadeIn();
+                        $scope.status=true;
+                    },500)
+                }else{
+                    $("#rule1").fadeOut();
+                    setTimeout(function () {
+                        $("#rule2").fadeIn();
+                        $scope.status=true;
+                    },500)
+                }
+            }
+
+
+        }
+        $scope.order_type=function () {
+            $("#order_type").popup();
+        }
+        $scope.chose=function (name) {
+            $scope.order_name=name;
+        }
+        $scope.datapush=function(){
+            $('.pop_sure').fadeIn();
+            $('#pop_mask').css({'visibility':'visible','opacity':1});
+            for(var i=0;i<$scope.thumb.length;i++){
+                data.append("images"+i,$scope.thumb[i].obj);
+                console.log(data.get('images'+i));
+            }
+        }
+//        效果代码-------------------------------------------------
+
+
+
+
+//        if($.isEmptyObject(json)){
+//            var url="";
+//            var json_param={};
+//            json_param['username']=$scope.username;
+//            $http({
+//                method: 'post',
+//                url: init_url,
+//                data: $.param(json_param),
+//                headers:{'Content-Type': 'application/x-www-form-urlencoded'}
+//            }).then(function successCallback(data) {
+//                // 请求成功执行代码
+//                json=data.data;
+//                $scope.json=data.data;
+//                $scope.json_config=data.data.json_config;
+//
+//                //          获取值传递
+//
+//            }, function errorCallback(data) {
+//                // 请求失败执行代码
+//                console.log("error:"+data);
+//                $.toast("网络错误","forbidden")
+//
+//            });
+//        }else{
+//
+//            $scope.json=json;
+//            $scope.json_config=json.json_config;
+//            $scope.server_json=json.server_json;
+//            if(json.server_json_active)
+//                $scope.server_json_active=json.server_json_active;
+//            if(json.is_apply==1){
+//                $.alert("您已经申请过了，请耐心等待", "提示", function() {
+//                    //点击确认后的回调函数
+//                    window.history.go(-1);
+//                });
+//            }
+//        }
+
+
+        //第二步完成
+        $scope.finishsecond=function () {
+            $scope.status=2;
+            if($scope.first==1){
+                $scope.first++;
+            }
+            console.log($scope.model_msg);
+            if($scope.imglength<=3){
+                $.toast("个人照不能少于3张", "text");
+            }else if($scope.model_msg=="" || $scope.model_msg==undefined){
+                $.toast("模特宣言不能为空", "text");
+            }else{
+                $('#status2').fadeOut(500);
+                setTimeout(function () {
+                    $('#status3').fadeIn();
+                },500);
+            }
+
+
+
+        }
+
+        //---------------------------------图片上传-------------------------------------
+        $scope.reader = new FileReader();   //创建一个FileReader接口
+        $scope.thumb = [];      //用于存放图片的base64
+        $scope.imglength=0;     //图片的数量
+        $scope.thumb_default = {    //用于循环默认的‘加号’添加图片的框
+            1111:{}
+        };
+        var s=0;
+        //将图片放进预览数组
+        var data = new FormData();      //以下为像后台提交图片数据
+        var s=0;
+        $scope.img_preview= function(files) {       //单次提交图片的函数
+
+            $scope.guid = (new Date()).valueOf();   //通过时间戳创建一个随机数，作为键名使用
+            $scope.reader.readAsDataURL(files[0]);  //FileReader的方法，把图片转成base64
+            $scope.reader.onload = function(ev) {
+                $scope.$apply(function(){
+                    $scope.thumb.push({
+                        imgSrc : ev.target.result,  //接收base64
+                        urlkey:'image'+s,
+                        obj:files[0]
+                    })
+                    data.append('image'+s, files[0]);
+                    data.append('guid',$scope.guid);
+                    s++;
+                    console.log( $scope.thumb);
+                    $scope.imglength=0;
+                    for(i in $scope.thumb){
+                        $scope.imglength++;
+                    }
+                });
+
+            };
+
+
+        };
+
+        //图片上传接口方法
+        $scope.imgload=function (data) {
+
+            //基本信息
+            data.set('real_name',$scope.username);//姓名
+            data.set('height',$scope.taller);//身高
+            data.set('weight',$scope.weight);//体重
+            data.set('birthyear',$scope.age);//出生年份
+            data.set('address',$scope.address);//地址
+            data.set('major',$scope.profession);//职业
+            if($scope.model_msg){
+                data.set('whisper',$scope.model_msg);//模特宣言
+            }else{
+                data.set('whisper','无');//模特宣言
+            }
+
+            //服务项目
+            data.set('server_ids',server_ids);
+            data.set('server_values',server_values);
+            $http({
+                method: 'post',
+                url: 'updateModelInfo.do',
+                data:data,
+                headers: {'Content-Type': undefined},
+                transformRequest: angular.identity
+            }).then(function(data) {
+                $.hideLoading();
+                if (data.data.err_code == -1) {
+                    $.toast("申请成功");
+                    window.location.href = $scope.json_config.domain_url+"/weixin/userCenter/index.do";
+                }else{
+                    $.toast(data.data.err_msg, "text");
+                }
+            })
+        }
+        $scope.pop_sure_back=function () {
+            location.reload();
+        }
+        $scope.img_del = function(index) {    //删除，删除的时候thumb和form里面的图片数据都要删除，避免提交不必要的
+            $.alert({
+                title: '删除！',
+                text: '您确定删除该图片吗',
+                onOK: function () {
+                    //点击确认
+                    $scope.$apply(function(){
+//                        var guidArr = [];
+//                        for(var p in $scope.thumb){
+//                            guidArr.push(p);
+//                        }
+//                        var urlname = $scope.thumb[guidArr[key]].urlkey;
+//                        data.delete(urlname);
+//                        delete $scope.thumb[guidArr[key]];
+                        $scope.thumb.splice(index,1)
+                        console.log($scope.thumb);
+                        $scope.imglength=0;
+                        for(i in $scope.thumb){
+                            $scope.imglength++;
+                        }
+                    });
+                }
+            });
+
+        };
+        //---------------------------------图片上传结束-------------------------------------
+
+        $("#picker").focus(function(){
+            document.activeElement.blur();
+        });
+
+        //完成提交
+        $scope.finish=function () {
+            //执行图片上传
+            $('.pop_sure').fadeIn();
+            $('#pop_mask').fadeIn();
+            $.showLoading();
+            $scope.imgload(data);
+        }
+
+        //关闭弹出框
+        $scope.closePopup=function(){
+            $.closePopup();
+        }
+    });
+</script>
+</html>

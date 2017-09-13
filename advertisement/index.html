@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>活动页面</title>
+    <link rel="stylesheet" href="http://common.huibaoming.cn/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="http://common.huibaoming.cn/jquery-weui/css/weui.css">
+    <link rel="stylesheet" href="http://common.huibaoming.cn/jquery-weui/css/jquery-weui.css">
+    <link rel="stylesheet" href="../src/css/wap.css">
+    <link rel="stylesheet" href="../src/css/activity.css">
+    <link rel="stylesheet" href="../src/css/wap_public.css">
+
+</head>
+<body ng-app="app" ng-controller="ctrl">
+<div  class="fix_containner" style="margin-top:0">
+        <div class="swiper-container details_img">
+            <div class="swiper-wrapper">
+                <!--<div class="swiper-slide" ng-repeat="item in json.index_pics track by $index" ng-click="toSwiper(item)">-->
+                    <!--<img src="{{json_config.oss_image_url}}/{{item.selected_icon}}" alt="" style="width:100%;height:11rem">-->
+                <!--</div>-->
+                <div class="swiper-slide" >
+                    <img src="http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/06/143147880.jpg" alt="" style="width:100%;height:11rem">
+                </div>
+                <div class="swiper-slide" >
+                    <img src="http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/06/143147880.jpg" alt="" style="width:100%;height:11rem">
+                </div>
+            </div>
+        </div>
+        <div class="goods mar-t3">
+            <p class="goods_title theme-borLeft-color">最新活动</p>
+            <div ng-repeat="item in goodsData" >
+                <div ng-click="click_div(item.id)" class="goods_item2" >
+                    <img ng-src="{{item.url}}" alt="" style="width:100%">
+                    <div class="activity_msg">
+                        <h4 ng-bind="item.title"></h4>
+                        <p ng-bind="item.msg"></p>
+                        <p class="text-r time sc-text-tab" ng-bind="item.time"></p>
+                    </div>
+                    <!--这是简介 ng-bind="item.intro"-->
+                </div>
+            </div>
+
+            <div class="weui-loadmore loadMore hide">
+                <i class="weui-loading"></i>
+                <span class="weui-loadmore__tips">正在加载</span>
+            </div>
+            <div class="weui-loadmore" ng-hide="has_data">
+                <span class="weui-loadmore__tips">没有更多记录</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部导航栏-->
+<!--<div class="weui-tabbar">-->
+    <!--<div class="weui-tabbar">-->
+        <!--<a href="{{combineUrl(item.url,item.app_module_action_param)}}"   class="weui-tabbar__item" ng-repeat="item in json.menu_1">-->
+            <!--<div class="weui-tabbar__icon weui-tar__img">-->
+                <!--<img src="{{json_config.oss_common_url}}/{{is_pre_url(item.url,item.app_module_action_param)?item.selected_icon:item.no_selected_icon}}" alt="">-->
+            <!--</div>-->
+            <!--<p class="weui-tabbar__label text-font2" ng-class="{'theme_sc':is_pre_url(item.url,item.app_module_action_param)}">{{item.name}}</p>-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</div>-->
+
+</body>
+<script src="http://common.huibaoming.cn/jquery/jquery.js"></script>
+<script src="http://common.huibaoming.cn/angular/angular.js"></script>
+<script src="http://common.huibaoming.cn/angular/angular-sku.js"></script>
+<script src="http://common.huibaoming.cn/jquery-weui/js/jquery-weui.js"></script>
+<script src="http://common.huibaoming.cn/swiper/js/swiper.js"></script>
+<script type="text/javascript">
+    var num=1;
+    var mySwiper = new Swiper(".swiper-container",{
+        direction:"horizontal",/*横向滑动*/
+        loop:true,/*形成环路（即：可以从最后一张图跳转到第一张图*/
+        pagination:".swiper-pagination",/*分页器*/
+        prevButton:".swiper-button-prev",/*前进按钮*/
+        nextButton:".swiper-button-next",/*后退按钮*/
+        autoplay:3000/*每隔3秒自动播放*/
+    })
+    var myapp = angular.module('app', []);
+
+    myapp.controller('ctrl', function ($scope) {
+        'use strict';
+        $scope.type = 'parent';
+        $scope.goodsData=[
+            {id:"1",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/06/143147880.jpg",title:"清新北欧设计",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'},
+            {id:"2",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/13/140741337.jpg",title:"清新美式书房",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'},
+            {id:"3",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/13/144748867.jpg",title:"混搭风原木书架设计",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'},
+            {id:"4",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/13/132206826.jpg",title:"清晰北欧书房",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'},
+            {id:"5",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/06/111132120.jpg",title:"现在客厅设计",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'},
+            {id:"5",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/06/133057337.jpg",title:"现在客厅设计",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'},
+            {id:"5",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/06/143147880.jpg",title:"现在客厅设计",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'},
+            {id:"5",url:"http://image1.yihaojiaju.com/24/48/SysImg/244/2017/06/06/143147880.jpg",title:"现在客厅设计",msg:'五星好评+三星好评+四星好评等你哥',time:'2017-06-03至2017-08-03'}
+        ]
+
+
+    });
+</script>
+</html>
